@@ -53,56 +53,60 @@ public class Network {
 	 * @throws FileNotFoundException if the file doesn't exist
 	 */
 	public Network(String filename) throws FileNotFoundException {
-
+		
         File theFile = new File(filename);
-        Scanner scanner = new Scanner(theFile);
-        warehouse = new Warehouse(WAREHOUSE_NAME);
-        vans = new LinkedList<Warehouse>();
-        parts = new LinkedList<PartInfo>();
-        LinkedList<String> master = new LinkedList<String>();
-        int counter = 0;
-        while (scanner.hasNext()) {
-            int i = 0;
-            master.add(scanner.nextLine());
-            i++;
-        }
-
-        for (int i = 0; i < master.size(); i++) {
-            while (counter == 0) {
-                if (!master.get(i).equals("")) {
-                    String temp = master.get(i);
-                    String[] toPlace = temp.split(",");
-                    BikePart part = new BikePart(toPlace[0], Integer.parseInt(toPlace[1]),
-                            Double.parseDouble(toPlace[2]), Double.parseDouble(toPlace[3]),
-                            Boolean.parseBoolean(toPlace[4]), Integer.parseInt(toPlace[5]));
-                    warehouse.add(part);
-                    parts.add(new PartInfo(part));
-                    i++;
-
-                } else {
-                    counter++;
-                }
+        if (theFile.exists())
+        {
+        	Scanner scanner = new Scanner(theFile);
+            warehouse = new Warehouse(WAREHOUSE_NAME);
+            vans = new LinkedList<Warehouse>();
+            parts = new LinkedList<PartInfo>();
+            LinkedList<String> master = new LinkedList<String>();
+            int counter = 0;
+            while (scanner.hasNext()) {
+                int i = 0;
+                master.add(scanner.nextLine());
+                i++;
             }
-            
-                if (!master.get(i).equals("")) {
-                	
-                    String temp = master.get(i);
-                    if (!temp.contains(",")) {
-                        addVan(temp);
-                    }
-                    else {
+
+            for (int i = 0; i < master.size(); i++) {
+                while (counter == 0) {
+                    if (!master.get(i).equals("")) {
+                        String temp = master.get(i);
                         String[] toPlace = temp.split(",");
                         BikePart part = new BikePart(toPlace[0], Integer.parseInt(toPlace[1]),
                                 Double.parseDouble(toPlace[2]), Double.parseDouble(toPlace[3]),
                                 Boolean.parseBoolean(toPlace[4]), Integer.parseInt(toPlace[5]));
-                        vans.get(vans.size() - 1).add(part);
+                        warehouse.add(part);
                         parts.add(new PartInfo(part));
-                        
-                    }
+                        i++;
 
+                    } else {
+                        counter++;
+                    }
+                }
+                
+                    if (!master.get(i).equals("")) {
+                    	
+                        String temp = master.get(i);
+                        if (!temp.contains(",")) {
+                            addVan(temp);
+                        }
+                        else {
+                            String[] toPlace = temp.split(",");
+                            BikePart part = new BikePart(toPlace[0], Integer.parseInt(toPlace[1]),
+                                    Double.parseDouble(toPlace[2]), Double.parseDouble(toPlace[3]),
+                                    Boolean.parseBoolean(toPlace[4]), Integer.parseInt(toPlace[5]));
+                            vans.get(vans.size() - 1).add(part);
+                            parts.add(new PartInfo(part));
+                            
+                        }
+
+                }
             }
+            scanner.close();
         }
-        scanner.close();
+        
     }
 
 	/**
@@ -156,7 +160,7 @@ public class Network {
 			warehouse.add(part);
 			parts.add(new PartInfo(part));
 			check = true;
-		} else {
+		} else if (check=false) {
 			for (int i = 0; i < vans.size(); i++) {
 				if (warehouseName.equals(vans.get(i).getName())) {
 					vans.get(i).add(part);
@@ -164,6 +168,9 @@ public class Network {
 					check = true;
 				}
 			}
+		}
+		else {
+			check = false;
 		}
 		return check;
 

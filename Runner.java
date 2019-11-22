@@ -64,7 +64,12 @@ public class Runner
 				System.out.println("Please enter warehouse to add to");
 				String ware = scan.next();
 				
-				network.add(new BikePart(name, num, price, salePrice, onSale, quantity), ware);
+				if (network.add(new BikePart(name, num, price, salePrice, onSale, quantity), ware)==true) {
+					System.out.println("Added successfully");
+				}
+				else {
+					System.out.println("Warehouse does not exist");
+				}
 				break;
 			case 2: //Sell
 				System.out.println("Please enter a part number: ");
