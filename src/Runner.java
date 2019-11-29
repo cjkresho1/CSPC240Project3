@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -26,8 +27,14 @@ public class Runner
 	 */
 	public static void main(String[] args) throws FileNotFoundException
 	{
+		Network network;
 		//create new Warehouse from database file 
-		Network network = new Network(WAREHOUSE_DB);
+		File testFile = new File(WAREHOUSE_DB);
+		if (testFile.exists()){
+		network = new Network(WAREHOUSE_DB);
+		} else {
+			network = new Network();
+		}
 		Scanner scan = new Scanner(System.in);
 		
 		//loop over user I/O process

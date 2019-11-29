@@ -312,7 +312,7 @@ public class Network {
 		//TODO FIX METHOD
 		int i;
 		PartQuantity[] sortedPartQuantities;
-		Warehouse sortedWarehouse = null;
+		Warehouse sortedWarehouse = warehouse;
 		BikePart[] sortedBikeParts = null;
 
 		if (warehouseSort.equals("all")) {
