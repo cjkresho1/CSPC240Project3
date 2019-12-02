@@ -109,7 +109,7 @@ public class Runner
 				}
 				break;
 			case 5: //SortNumber
-				System.out.println("Enter the warehouse to print, or hit enter for all:");
+				System.out.println("Enter the warehouse to print, or type 'all' for all:");
 				BikePart[] numberArray = network.sortNum(scan.next());
 				for (int i = 0; i < numberArray.length; i++)
 				{
@@ -149,7 +149,7 @@ public class Runner
 		System.out.println("SortName: Sort parts by part name");
 		System.out.println("SortNumber: Sort parts by part number");
 		System.out.println("Transfer: Read an inventory transfer file");
-		System.out.println("Add Van: Add a new van");
+		System.out.println("AddVan: Add a new van");
 		System.out.println("Quit:");
 		System.out.println("Enter your choice:");
 	}
