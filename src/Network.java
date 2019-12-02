@@ -68,6 +68,7 @@ public class Network {
                 master.add(scanner.nextLine());
                 i++;
             }
+            master.add("");
 
             for (int i = 0; i < master.size(); i++) {
                 while (counter == 0) {
