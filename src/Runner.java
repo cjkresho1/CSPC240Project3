@@ -47,7 +47,9 @@ public class Runner
 			{
 			case 0: //Read
 				System.out.println("Please enter a filename for delivery: ");
-				network.deliver(scan.next());
+				if (network.deliver(scan.next())==false) {
+					System.out.println("File not found");
+				}
 				break;
 			case 1: //Enter
 				System.out.println("Please enter a part name:");
