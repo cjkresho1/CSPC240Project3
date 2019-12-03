@@ -636,6 +636,7 @@ public class LoginSystem
 			if (source == null)
 			{
 				System.out.println("Source not found.");
+				transferScan.close();
 				return;
 			}
 			
@@ -643,7 +644,24 @@ public class LoginSystem
 			while (transferScan.hasNext())
 			{
 				String nextPart = transferScan.next();
+				requestParts.add(new WarehousePart(nextPart));
 			}
+			
+			WarehousePart[] requestPartsArray = (WarehousePart[]) requestParts.toArray();
+			WarehousePart[] recievedParts = source.getVan().remove(requestPartsArray);
+			
+			for (int i = 0; i < recievedParts.length; i++)
+			{
+				if (requestPartsArray[i].getQuantity() != recievedParts[i].getQuantity())
+				{
+					System.out.println("Not enough of part " + recievedParts[i].getName() + " for request. "
+							+ recievedParts[i].getQuantity() + " parts were recieved "
+									+ "out of " + requestPartsArray[i].getQuantity() + "requested.");
+				}
+			}
+			
+			((SalesAssociate)curUser).getVan().deliever(recievedParts);
+			transferScan.close();
 		}
 	}
 

@@ -56,6 +56,18 @@ public class WarehousePart extends Part
 		this.onSale = otherPart.isOnSale();
 		this.quantity = otherPart.getQuantity();
 	}
+	
+	public WarehousePart(String part)
+	{
+		super("", 0);
+		String[] partInfo = part.split(",");
+		this.name = partInfo[0];
+		this.partNum = Integer.parseInt(partInfo[1]);
+		this.price = Double.parseDouble(partInfo[2]);
+		this.salePrice = Double.parseDouble(partInfo[3]);
+		this.onSale = Boolean.parseBoolean(partInfo[4]);
+		this.quantity = Integer.parseInt(partInfo[5]);
+	}
 
 
 	/**
