@@ -499,10 +499,10 @@ public class LoginSystem
 			}
 		}
 	}
-
+ 
 	private void salesCommission() 
 	{
-				String username = null;
+		String username = null;
 		while (username == null)
 		{
 			System.out.print("Sales Associate Name: ");
@@ -517,10 +517,10 @@ public class LoginSystem
 			}
 		}
 		SalesAssociate foundPerson = null;
-
+		
 		for (int i = 0; i < people.size(); i++)
 		{
-			if(people.get(i).getUsername().equals(username)) 
+			if(people.get(i).getPerson().getFirst().equalsIgnoreCase(username)) 
 			{
 				if (people.get(i).getType() == LoginType.SALES_ASSOCIATE)
 				{
@@ -532,16 +532,56 @@ public class LoginSystem
 				}
 			}
 		}
-
+		
 		if (foundPerson.equals(null)) {
 			System.out.println("Please enter a valid Sales Associate.");
 			return;
 		}
-
-
-
-		System.out.println("Username not found.");
-		// TODO 
+		
+		LinkedList<Invoice> tempInvoices = foundPerson.getInvoices();
+		LinkedList<Invoice> commissionList = new LinkedList<Invoice>();
+		
+		System.out.println("Please enter invoice start date: month by number");
+		int invStartMonth = scan.nextInt();
+		System.out.println("Please enter invoice start date: day");
+		int invStartDay = scan.nextInt();
+		System.out.println("Please enter invoice start date: year");
+		int invStartYear = scan.nextInt();
+		
+		LocalDateTime startDate = LocalDateTime.of(invStartYear,invStartMonth,invStartDay,0,0);
+		
+		System.out.println("Please enter invoice end date: month by number");
+		int invEndMonth = scan.nextInt();
+		System.out.println("Please enter invoice end date: day");
+		int invEndDay = scan.nextInt();
+		System.out.println("Please enter invoice end date: year");
+		int invEndYear = scan.nextInt();
+		
+		LocalDateTime endDate = LocalDateTime.of(invEndYear,invEndMonth,invEndDay,0,0);
+		
+		for (int i = 0; i < tempInvoices.size(); i++) {
+			Invoice tempInvoice = tempInvoices.get(i);
+			if (startDate.compareTo(tempInvoice.getDate()) == -1 && endDate.compareTo(tempInvoice.getDate()) == 1) {
+				commissionList.add(tempInvoice);
+			}
+		}
+		double salary = 0;
+		
+		for (int i = 0; i < commissionList.size(); i++) {
+			LinkedList<WarehousePart> invoiceParts = commissionList.get(i).getSales();
+			for (int j = 0; j < invoiceParts.size(); j++) {
+				double salaryToAdd = 0;
+				if (invoiceParts.get(j).isOnSale()) {
+					salaryToAdd = invoiceParts.get(j).getSalePrice();
+				} else {
+					salaryToAdd = invoiceParts.get(j).getPrice();
+				}
+				salary = salary + salaryToAdd;
+			}
+		}
+		
+		System.out.println(username + " commission is $" + salary);
+				
 	}
 
 	private void warehouesManagerPrompt()
