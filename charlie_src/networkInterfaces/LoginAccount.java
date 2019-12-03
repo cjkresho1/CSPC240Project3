@@ -134,6 +134,14 @@ public abstract class LoginAccount
 		return type;
 	}
 	
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+	
 	/************************PRIVATE METHODS HERE***********************************/
 
 	/**
