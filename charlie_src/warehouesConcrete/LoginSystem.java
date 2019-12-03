@@ -486,12 +486,58 @@ public class LoginSystem
 
 	private void orderParts() 
 	{
-		// TODO Auto-generated method stub
+		LinkedList<WarehousePart> partList = main.getInv();
+		for (int i = 0; i < partList.size(); i ++) 
+		{
+			WarehousePart tempPart = partList.get(i);
+			if (tempPart.getQuantity() <= 15) {
+				System.out.println(tempPart.getName() + " inventory is low. Current quantity: " + tempPart.getQuantity());
+			}
+		}
 		
 	}
 
 	private void salesCommission() 
 	{
+		String username = null;
+		while (username == null)
+		{
+			System.out.print("Sales Associate Name: ");
+			try
+			{
+				username = scan.next();
+			}
+			catch(Exception e)
+			{
+				System.out.println("Invalid input, please try again.");
+				username = null;
+			}
+		}
+		SalesAssociate foundPerson = null;
+		
+		for (int i = 0; i < people.size(); i++)
+		{
+			if(people.get(i).getUsername().equals(username)) 
+			{
+				if (people.get(i).getType() == LoginType.SALES_ASSOCIATE)
+				{
+					foundPerson = (SalesAssociate)people.get(i);
+					break;
+				} else {
+					System.out.println("Please enter a Sales Associate.");
+					break;
+				}
+			}
+		}
+		
+		if (foundPerson.equals(null)) {
+			System.out.println("Please enter a valid Sales Associate.");
+			return;
+		}
+		
+		
+		
+		System.out.println("Username not found.");
 		// TODO 
 	}
 
