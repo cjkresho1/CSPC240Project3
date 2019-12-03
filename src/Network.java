@@ -161,7 +161,7 @@ public class Network {
 			warehouse.add(part);
 			parts.add(new PartInfo(part));
 			check = true;
-		} else if (check=false) {
+		} else if (check==false) {
 			for (int i = 0; i < vans.size(); i++) {
 				if (warehouseName.equals(vans.get(i).getName())) {
 					vans.get(i).add(part);
