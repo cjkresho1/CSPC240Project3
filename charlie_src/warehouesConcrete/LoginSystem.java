@@ -2,7 +2,6 @@ package warehouesConcrete;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -57,13 +56,14 @@ public class LoginSystem
 		while (keepRunning)
 		{
 			System.out.println("Please select from the following options:");
-			System.out.println("1: Loggin");
+			System.out.println("1: Login");
 			System.out.println("2: Close system");
 			System.out.print("Please enter the number of your choice:");
 			
 			try
 			{
-				choice = scan.nextInt();
+				String choiceString = scan.next();
+				choice = Integer.parseInt(choiceString);
 			}
 			catch(Exception e)
 			{
@@ -162,7 +162,8 @@ public class LoginSystem
 			
 			try
 			{
-				choice = scan.nextInt();
+				String choiceString = scan.next();
+				choice = Integer.parseInt(choiceString);
 			}
 			catch(Exception e)
 			{
@@ -377,7 +378,8 @@ public class LoginSystem
 			
 			try
 			{
-				choice = scan.nextInt();
+				String choiceString = scan.next();
+				choice = Integer.parseInt(choiceString);
 			}
 			catch(Exception e)
 			{
@@ -415,7 +417,8 @@ public class LoginSystem
 		int choice = 0;
 		try
 		{
-			choice = scan.nextInt();
+			String choiceString = scan.next();
+			choice = Integer.parseInt(choiceString);
 		}
 		catch(Exception e)
 		{
@@ -449,7 +452,8 @@ public class LoginSystem
 			int num = 0;
 			try
 			{
-				num = scan.nextInt();
+				String numString = scan.next();
+				num = Integer.parseInt(numString);
 			}
 			catch(Exception e)
 			{
@@ -494,12 +498,11 @@ public class LoginSystem
 				System.out.println(tempPart.getName() + " inventory is low. Current quantity: " + tempPart.getQuantity());
 			}
 		}
-		
 	}
 
 	private void salesCommission() 
 	{
-		String username = null;
+				String username = null;
 		while (username == null)
 		{
 			System.out.print("Sales Associate Name: ");
@@ -514,7 +517,7 @@ public class LoginSystem
 			}
 		}
 		SalesAssociate foundPerson = null;
-		
+
 		for (int i = 0; i < people.size(); i++)
 		{
 			if(people.get(i).getUsername().equals(username)) 
@@ -529,14 +532,14 @@ public class LoginSystem
 				}
 			}
 		}
-		
+
 		if (foundPerson.equals(null)) {
 			System.out.println("Please enter a valid Sales Associate.");
 			return;
 		}
-		
-		
-		
+
+
+
 		System.out.println("Username not found.");
 		// TODO 
 	}
@@ -557,7 +560,8 @@ public class LoginSystem
 			
 			try
 			{
-				choice = scan.nextInt();
+				String choiceString = scan.next();
+				choice = Integer.parseInt(choiceString);
 			}
 			catch(Exception e)
 			{
@@ -606,7 +610,8 @@ public class LoginSystem
 			
 			try
 			{
-				choice = scan.nextInt();
+				String choiceString = scan.next();
+				choice = Integer.parseInt(choiceString);
 			}
 			catch(Exception e)
 			{
@@ -709,16 +714,20 @@ public class LoginSystem
 			((SalesAssociate)curUser).getVan().deliever(recievedParts);
 			transferScan.close();
 		}
+		else
+		{
+			System.out.println("File does not exist.");
+		}
 	}
 
 	private void generateInvoice() 
 	{
 		SalesAssociate tempAssociate = (SalesAssociate) curUser;
-		System.out.println("What is the name of the associate you are selling to?");
+		System.out.println("What is the name of the owner you are selling to?");
 		String associateName = null;
 		while (associateName == null)
 		{
-			System.out.print("Associate name: ");
+			System.out.print("Shop owner name: ");
 			try
 			{
 				associateName = scan.next();
@@ -732,19 +741,9 @@ public class LoginSystem
 		Invoice voice = new Invoice(associateName);
 		
 		boolean selling = true;
-		int choice = 0;
+		int choice = 1;
 		while (selling)
 		{
-			System.out.print("Do you have another part to sell? 1 for yes, 2 for no: ");
-			try
-			{
-				choice = scan.nextInt();
-			}
-			catch(Exception e)
-			{
-				choice = 0;
-			}
-			
 			switch(choice)
 			{
 			case 1:
@@ -754,7 +753,8 @@ public class LoginSystem
 				System.out.print("Sell by part name or number? 1 for name, 2 for number: ");
 				try
 				{
-					choicePart = scan.nextInt();
+					String choiceString = scan.next();
+					choicePart = Integer.parseInt(choiceString);
 				}
 				catch(Exception e)
 				{
@@ -785,7 +785,8 @@ public class LoginSystem
 					int num = 0;
 					try
 					{
-						num = scan.nextInt();
+						String numString = scan.next();
+						num = Integer.parseInt(numString);
 					}
 					catch(Exception e)
 					{
@@ -810,7 +811,8 @@ public class LoginSystem
 					int quant = 0;
 					try
 					{
-						quant = scan.nextInt();
+						String quantString = scan.next();
+						quant = Integer.parseInt(quantString);
 					}
 					catch(Exception e)
 					{
@@ -837,6 +839,17 @@ public class LoginSystem
 			default:
 				System.out.println("Invalid input, please try again.\n");
 			}
+			
+			System.out.print("Do you have another part to sell? 1 for yes, 2 for no: ");
+			try
+			{
+				String choiceString = scan.next();
+				choice = Integer.parseInt(choiceString);
+			}
+			catch(Exception e)
+			{
+				choice = 0;
+			}
 		}
 		
 		tempAssociate.addInvoice(voice);
@@ -845,7 +858,8 @@ public class LoginSystem
 
 	private void readFileOnStart(String fileName)
 	{
-		// TODO
+		File file = new File(fileName);
+		
 	}
 	
 	private void writeFileOnClose(String fileName)
