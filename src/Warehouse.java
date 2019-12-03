@@ -77,10 +77,7 @@ public class Warehouse
 	public void add(BikePart part)
 	{
 		PartQuantity tempPart = new PartQuantity(part);
-		if (this.parts.size() == 0)
-		{
-			this.parts.add(tempPart);
-		}
+		
 		for (int i = 0; i < this.parts.size(); i++) {
             PartQuantity oldPart = this.parts.get(i);
             if (tempPart.getName().equals(oldPart.getName())) {
@@ -92,6 +89,10 @@ public class Warehouse
                 return;
             }
         }
+		if (this.parts.size() == 0)
+		{
+			this.parts.add(tempPart);
+		}
 	}
 	
 	/**

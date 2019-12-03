@@ -52,23 +52,54 @@ public class Runner
 				}
 				break;
 			case 1: //Enter
+				int num;
+				double price;
+				double salePrice;
+				boolean onSale;
+				int quantity;
+				
 				System.out.println("Please enter a part name:");
 				String name = scan.next();
 				
 				System.out.println("Please enter a part number:");
-				int num = scan.nextInt();
+				if (scan.hasNextInt()) {
+					num = scan.nextInt();
+				} else {
+					System.out.println("Enter a valid number");
+					break;
+				}
 				
 				System.out.println("Please enter a price:");
-				double price = scan.nextDouble();
+				if (scan.hasNextDouble()) {
+					price = scan.nextDouble();
+				} else {
+					System.out.println("Enter a valid number");
+					break;
+				}
 				
 				System.out.println("Please enter a sale price:");
-				double salePrice = scan.nextDouble();
+				if (scan.hasNextDouble()) {
+					salePrice = scan.nextDouble();
+				} else {
+					System.out.println("Enter a valid number");
+					break;
+				}
 				
 				System.out.println("Please enter true for on sale, false otherwise");
-				boolean onSale = scan.nextBoolean();
+				if (scan.hasNextBoolean()) {
+					onSale = scan.nextBoolean();
+				} else {
+					System.out.println("Enter true or false");
+					break;
+				}
 				
 				System.out.println("Please enter quantity:");
-				int quantity = scan.nextInt();
+				if (scan.hasNextInt()) {
+					quantity = scan.nextInt();
+				} else {
+					System.out.println("Enter a valid number");
+					break;
+				}
 				
 				System.out.println("Please enter warehouse to add to");
 				String ware = scan.next();

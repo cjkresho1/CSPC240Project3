@@ -64,9 +64,7 @@ public class Network {
             LinkedList<String> master = new LinkedList<String>();
             int counter = 0;
             while (scanner.hasNext()) {
-                int i = 0;
                 master.add(scanner.nextLine());
-                i++;
             }
             master.add("");
 
@@ -390,13 +388,15 @@ public class Network {
 	 * 
 	 * @param filename name of transfer file
 	 */
+	@SuppressWarnings("resource")
 	public void transfer(String filename) {
-		Scanner scnr = null;
+		Scanner scnr;
 		try {
 			File file = new File(filename);
 			scnr = new Scanner(file);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			System.out.println("Please enter a valid file name.");
+			return;
 		}
 		
 		String tempString = scnr.next();
@@ -432,7 +432,7 @@ public class Network {
 			tempString = scnr.next();
 			lineSplit = tempString.split(",");
 			String name = lineSplit[0];
-			int quantity = Integer.parseInt(lineSplit[1]);
+			int quantity = Integer.parseInt(lineSplit[5]);
 
 			PartInfo newPartInfo = getPartFromDatabase(name);
 			BikePart newBikePart = new BikePart(newPartInfo.getName(), newPartInfo.getNum(), newPartInfo.getPrice(),
