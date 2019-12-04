@@ -453,7 +453,7 @@ public class LoginSystem
 			part = main.find(name);
 			break;
 		case 2:
-			System.out.print("Please enter a part name: ");
+			System.out.print("Please enter a part number: ");
 			int num = 0;
 			try
 			{
@@ -796,16 +796,16 @@ public class LoginSystem
 				requestParts.add(new WarehousePart(nextPart));
 			}
 			
-			WarehousePart[] requestPartsArray = (WarehousePart[]) requestParts.toArray();
-			WarehousePart[] recievedParts = ware.remove(requestPartsArray);
+			
+			WarehousePart[] recievedParts = ware.remove(requestParts);
 			
 			for (int i = 0; i < recievedParts.length; i++)
 			{
-				if (requestPartsArray[i].getQuantity() != recievedParts[i].getQuantity())
+				if (requestParts.get(i).getQuantity() != recievedParts[i].getQuantity())
 				{
 					System.out.println("Not enough of part " + recievedParts[i].getName() + " for request. "
 							+ recievedParts[i].getQuantity() + " parts were recieved "
-									+ "out of " + requestPartsArray[i].getQuantity() + "requested.");
+									+ "out of " + requestParts.get(i).getQuantity() + "requested.");
 				}
 			}
 			
