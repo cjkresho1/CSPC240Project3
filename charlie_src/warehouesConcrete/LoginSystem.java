@@ -919,7 +919,9 @@ public class LoginSystem
 					
 					if (quant > 0)
 					{
-						WarehousePart tempPart = tempAssociate.getVan().remove(part);
+						WarehousePart tempRemove = new WarehousePart(part);
+						tempRemove.setQuantity(quant);
+						WarehousePart tempPart = tempAssociate.getVan().remove(tempRemove);
 						voice.add(tempPart);
 						System.out.println("" + tempPart.getQuantity() + " of part "
 								+ tempPart.getName() + " were sold.");
