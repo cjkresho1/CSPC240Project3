@@ -2,6 +2,7 @@ package networkInterfaces;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.LinkedList;
 import java.util.Random;
 
 import javax.crypto.SecretKey;
@@ -144,14 +145,6 @@ public abstract class LoginAccount
 		return type;
 	}
 	
-	public Person getPerson() {
-		return person;
-	}
-
-	public void setPerson(Person person) {
-		this.person = person;
-	}
-	
 	/************************PRIVATE METHODS HERE***********************************/
 
 	/**
@@ -203,5 +196,31 @@ public abstract class LoginAccount
 		}
 		
 		return true;
+	}
+
+	public Person getPerson() 
+	{
+		return person;
+	}
+
+	/**
+	 * @return the password
+	 */
+	public byte[] getPassword() {
+		return password;
+	}
+
+	/**
+	 * @return the salt
+	 */
+	public byte[] getSalt() {
+		return salt;
+	}
+
+	/**
+	 * @return the iterations
+	 */
+	public int getIterations() {
+		return iterations;
 	}
 }
