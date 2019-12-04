@@ -9,7 +9,7 @@ import warehouesConcrete.WarehousePart;
  * @author Team5
  *
  */
-public abstract class Warehouse 
+public class Warehouse 
 {
 	/**
 	 * List of WarehouseParts
@@ -242,6 +242,7 @@ public abstract class Warehouse
 			{
 				if (parts[i].getPartNum() == inv.get(j).getPartNum())
 				{
+					foundPart = new WarehousePart(inv.get(j));
 					foundPart.setQuantity(Math.min(parts[i].getQuantity(), inv.get(j).getQuantity()));
 					inv.get(j).setQuantity(inv.get(j).getQuantity() - foundPart.getQuantity());
 					break;
@@ -269,7 +270,7 @@ public abstract class Warehouse
 		return returnPart;
 	}
 	
-	public LinkedList<WarehousePart> getInv()
+	public LinkedList<WarehousePart> getInv() 
 	{
 		return inv;
 	}
