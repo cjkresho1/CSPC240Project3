@@ -631,8 +631,50 @@ public class LoginSystem
 	
 	private void updateInventory() 
 	{
-		// TODO Auto-generated method stub
+		System.out.print("Please enter the file name: ");
 		
+		String fileName = null;
+		while (fileName == null)
+		{
+			System.out.print("File name: ");
+			try
+			{
+				fileName = scan.next();
+			}
+			catch(Exception e)
+			{
+				System.out.println("Invalid input, please try again.");
+				fileName = null;
+			}
+		}
+		
+		File file = new File(fileName);
+		if (file.exists())
+		{
+			Scanner fileScan = null;
+			try 
+			{
+				fileScan = new Scanner(file);
+			} 
+			catch (FileNotFoundException e) 
+			{
+				System.out.println("File not found.");
+				return;
+			}
+			String nextPart = null;
+			while(fileScan.hasNext())
+			{
+				nextPart = fileScan.next();
+				
+				main.add(new WarehousePart(nextPart));
+			}
+			
+			fileScan.close();
+		}
+		else
+		{
+			System.out.println("File does not exist.");
+		}
 	}
 
 	private void salesAssociatePrompt()
