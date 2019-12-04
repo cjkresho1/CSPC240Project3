@@ -23,4 +23,9 @@ public class WarehouseManager extends LoginAccount
 		super(first, last, email, user, pass);
 		type = LoginType.WAREHOUSE_MANAGER;
 	}
+	
+	public WarehouseManager(String first, String last, String email, String user, byte[] pass, byte[] salt, int iter)
+	{
+		super (first, last, email, user, pass, salt, iter);
+	}
 }
