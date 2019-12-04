@@ -959,16 +959,85 @@ public class LoginSystem
 	private void readFileOnStart(String fileName)
 	{
 		File file = new File(fileName);
-		
-		if (file.exists())
-		{
+		Scanner scnr;
+		try {
+			scnr = new Scanner(file);
+		} catch (FileNotFoundException e) {
+			people.add(new SystemAdmin("John", "Smith", "jsmizzle@bike.org", "admin", "madni"));
+			return;
+		}
+		while(scnr.next() != "people") {
+			String[] tempPart = scnr.next().split(",");
+			main.add(new WarehousePart(tempPart[1], Integer.parseInt(tempPart[2]),
+					Double.parseDouble(tempPart[3]), Double.parseDouble(tempPart[4]),
+					Boolean.parseBoolean(tempPart[5]), Integer.parseInt(tempPart[6])));
+		}
+		scnr.next();
+		while(scnr.next() != "finish") {
+			String[] tempPerson = scnr.next().split(",");
 			
+			String[] hash = scnr.next().split(",");
+			String[] saltString = scnr.next().split(",");
+			int iterations = Integer.parseInt(scnr.next());
+			byte[] password = new byte[hash.length];
+			byte[] salt = new byte[saltString.length];
+			
+			for (int i = 0; i < password.length; i++) {
+				password[i] = Byte.parseByte(hash[i]);
+			}
+			
+			for (int i = 0; i < salt.length; i++) {
+				salt[i] = Byte.parseByte(saltString[i]);
+			}
+			
+			if (Integer.parseInt(tempPerson[0]) == 1) 
+			{
+				people.add(new SystemAdmin(tempPerson[1],tempPerson[2],
+						tempPerson[3],tempPerson[4],password,salt,iterations));
+			} 
+			else if (Integer.parseInt(tempPerson[0]) == 2) 
+			{
+				people.add(new OfficeManager(tempPerson[1],tempPerson[2],
+						tempPerson[3],tempPerson[4],password,salt,iterations));
+			} 
+			else if (Integer.parseInt(tempPerson[0]) == 3) 
+			{
+				people.add(new WarehouseManager(tempPerson[1],tempPerson[2],
+						tempPerson[3],tempPerson[4],password,salt,iterations));
+			} 
+			else 
+			{
+				people.add(new SalesAssociate(tempPerson[1],tempPerson[2],
+						tempPerson[3],tempPerson[4],password,salt,iterations));
+			}
+			
+			if (Integer.parseInt(tempPerson[0]) == 4) {
+				SalesAssociate tempAssoc = (SalesAssociate)people.get(people.size()-1);
+				while(scnr.next() != "invoices") {
+					String[] newVanPart = scnr.next().split(",");
+					tempAssoc.getVan().add(new WarehousePart(newVanPart[0],Integer.parseInt(newVanPart[1]),
+							Double.parseDouble(newVanPart[2]),Double.parseDouble(newVanPart[3]),
+							Boolean.parseBoolean(newVanPart[4]),Integer.parseInt(newVanPart[5])));
+				}
+				scnr.next();
+				while(scnr.next() != "end") {
+					
+					String[] invoiceInfo = scnr.next().split(",");
+					Invoice tempInvoice = new Invoice(invoiceInfo[0]);
+					LocalDateTime newTime = LocalDateTime.parse(invoiceInfo[1]);
+					tempInvoice.setDate(newTime);
+					
+					while(scnr.next() != "new") {
+						String[] invoicePartInfo = scnr.next().split(",");
+						tempInvoice.add(new WarehousePart(invoicePartInfo[0],Integer.parseInt(invoicePartInfo[1]),
+								Double.parseDouble(invoicePartInfo[2]),Double.parseDouble(invoicePartInfo[3]),
+								Boolean.parseBoolean(invoicePartInfo[4]),Integer.parseInt(invoicePartInfo[5])));
+					}
+					tempAssoc.addInvoice(tempInvoice);
+				}
+			}
 		}
-		else
-		{
-			people.add(new SystemAdmin("Charlie", "Kresho", "ckemail@email.com", "admin", "madni"));
-		}
-		
+		scnr.close();
 	}
 	
 	private void writeFileOnClose(String fileName)
