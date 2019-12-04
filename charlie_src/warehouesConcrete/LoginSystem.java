@@ -525,7 +525,7 @@ public class LoginSystem
 		
 		for (int i = 0; i < people.size(); i++)
 		{
-			if(people.get(i).getPerson().getFirst().equalsIgnoreCase(username)) 
+			if(people.get(i).getUsername().equalsIgnoreCase(username)) 
 			{
 				if (people.get(i).getType() == LoginType.SALES_ASSOCIATE)
 				{
