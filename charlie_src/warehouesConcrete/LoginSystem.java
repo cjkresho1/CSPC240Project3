@@ -2,12 +2,15 @@ package warehouesConcrete;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 
 import networkInterfaces.LoginAccount;
 import networkInterfaces.LoginType;
+import networkInterfaces.Warehouse;
 
 /**
  * Runs the login and permission system for login accounts, and holds all people and 
@@ -18,6 +21,7 @@ import networkInterfaces.LoginType;
 public class LoginSystem 
 {
 	private static final String DEFAULT_FILE = "DB_File.txt";
+	private static final String MAIN = "mainWarehouse";
 	private Scanner scan;
 	private MainWarehouse main;
 	private LinkedList<LoginAccount> people;
@@ -753,25 +757,34 @@ public class LoginSystem
 				System.out.println("File could not be found.");
 				return;
 			}
-			
+			Warehouse ware = null;
 			String sourceName = transferScan.next();
-			SalesAssociate source = null;
-			for(int i = 0; i < people.size(); i++)
+			if (sourceName.equals(MAIN))
 			{
-				if(people.get(i).getUsername().equals(sourceName))
+				ware = main;
+			}
+			else
+			{
+				SalesAssociate source = null;
+				for(int i = 0; i < people.size(); i++)
 				{
-					if (people.get(i).getType() == LoginType.SALES_ASSOCIATE)
+					if(people.get(i).getUsername().equals(sourceName))
 					{
-						source = (SalesAssociate)people.get(i);
+						if (people.get(i).getType() == LoginType.SALES_ASSOCIATE)
+						{
+							source = (SalesAssociate)people.get(i);
+						}
 					}
 				}
-			}
-			
-			if (source == null)
-			{
-				System.out.println("Source not found.");
-				transferScan.close();
-				return;
+				
+				if (source == null)
+				{
+					System.out.println("Sales associate not found.");
+					transferScan.close();
+					return;
+				}
+				
+				ware = source.getVan();
 			}
 			
 			LinkedList<WarehousePart> requestParts = new LinkedList<WarehousePart>();
@@ -782,7 +795,7 @@ public class LoginSystem
 			}
 			
 			WarehousePart[] requestPartsArray = (WarehousePart[]) requestParts.toArray();
-			WarehousePart[] recievedParts = source.getVan().remove(requestPartsArray);
+			WarehousePart[] recievedParts = ware.remove(requestPartsArray);
 			
 			for (int i = 0; i < recievedParts.length; i++)
 			{
@@ -861,7 +874,7 @@ public class LoginSystem
 						}
 					}
 					
-					part = main.find(name);
+					part = tempAssociate.getVan().find(name);
 					break;
 				case 2:
 					System.out.print("Please enter a part number: ");
@@ -876,7 +889,7 @@ public class LoginSystem
 						num = 0;
 					}
 					
-					part = main.find(num);
+					part = tempAssociate.getVan().find(num);
 					break;
 				default:
 					System.out.println("Invalid input.");
@@ -904,7 +917,7 @@ public class LoginSystem
 					
 					if (quant > 0)
 					{
-						WarehousePart tempPart = main.remove(part);
+						WarehousePart tempPart = tempAssociate.getVan().remove(part);
 						voice.add(tempPart);
 						System.out.println("" + tempPart.getQuantity() + " of part "
 								+ tempPart.getName() + " were sold.");
@@ -943,10 +956,62 @@ public class LoginSystem
 	{
 		File file = new File(fileName);
 		
+		if (file.exists())
+		{
+			
+		}
+		else
+		{
+			people.add(new SystemAdmin("Charlie", "Kresho", "ckemail@email.com", "admin", "madni"));
+		}
+		
 	}
 	
 	private void writeFileOnClose(String fileName)
 	{
-		// TODO
+		File file = new File(fileName);
+		FileWriter writer = null;
+		if (file.exists())
+		{
+			file.delete();
+		}
+		try 
+		{
+			file.createNewFile();
+			writer = new FileWriter(file);
+		} 
+		catch (IOException e) 
+		{
+			System.out.println("DB file could not be created.");
+		}
+		
+		for (int i = 0; i < main.getInv().size(); i++)
+		{
+			WarehousePart curPart = main.getInv().get(i);
+			String onSale = "false";
+			if (curPart.isOnSale())
+			{
+				onSale = "true";
+			}
+			try 
+			{
+				writer.write(String.format("%s,%i,%.2f,%.2f,%s,%i", curPart.getName(),
+						curPart.getPartNum(), curPart.getPrice(), curPart.getSalePrice(), onSale, curPart.getQuantity()));
+			} 
+			catch (IOException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		try 
+		{
+			writer.close();
+		} catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
