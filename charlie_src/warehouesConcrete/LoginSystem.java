@@ -1068,13 +1068,99 @@ public class LoginSystem
 			}
 			try 
 			{
-				writer.write(String.format("%s,%i,%.2f,%.2f,%s,%i", curPart.getName(),
+				writer.write(String.format("%s,%d,%.2f,%.2f,%s,%d%n", curPart.getName(),
 						curPart.getPartNum(), curPart.getPrice(), curPart.getSalePrice(), onSale, curPart.getQuantity()));
 			} 
 			catch (IOException e) 
 			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("Could not write to file:");
+				System.out.println((String.format("%s,%d,%.2f,%.2f,%s,%d%n", curPart.getName(),
+						curPart.getPartNum(), curPart.getPrice(), curPart.getSalePrice(), onSale, curPart.getQuantity())));
+			}
+		}
+		try 
+		{
+			writer.write("people%n");
+		} 
+		catch (IOException e1) 
+		{
+			e1.printStackTrace();
+		}
+		
+		for (int i = 0; i < people.size(); i++)
+		{
+			LoginAccount curPerson = people.get(i);
+			try
+			{
+				int typeNum = curPerson.getType().ordinal() + 1;
+				writer.write(String.format("%d%s,%s,%s,%s%n", typeNum, curPerson.getPerson().getFirst(), curPerson.getPerson().getLast(), 
+						curPerson.getPerson().getEmail(), curPerson.getUsername()));
+				
+				writer.write("" + curPerson.getPassword()[0]);
+				for(int j = 1; j < curPerson.getPassword().length; i++)
+				{
+					writer.write("," + curPerson.getPassword()[i]);
+				}
+				writer.write("\n");
+				
+				writer.write("" + curPerson.getSalt()[0]);
+				for(int j = 1; j < curPerson.getSalt().length; i++)
+				{
+					writer.write("," + curPerson.getSalt()[i]);
+				}
+				writer.write("\n");
+				
+				writer.write("" + curPerson.getIterations() + "\n");
+			}
+			catch(Exception e)
+			{
+				System.out.println("Couldn't write user.");
+			}
+			if(curPerson.getType() == LoginType.SALES_ASSOCIATE)
+			{
+				try
+				{
+					SalesAssociate curSales = (SalesAssociate)curPerson;
+					LinkedList<WarehousePart> van = curSales.getVan().getInv();
+					for (int j = 0; j < van.size(); j++)
+					{
+						String onSale = "false";
+						if (van.get(j).isOnSale())
+						{
+							onSale = "true";
+						}
+						writer.write(String.format("%s,%d,%.2f,%.2f,%s,%d%n", van.get(j).getName(),
+								van.get(j).getPartNum(), van.get(j).getPrice(), 
+								van.get(j).getSalePrice(), onSale, van.get(j).getQuantity()));
+					}
+					
+					writer.write("invoices\n");
+					
+					LinkedList<Invoice> voices = curSales.getInvoices();
+					for (int j = 0; j < voices.size(); j++)
+					{
+						writer.write("" + voices.get(j).getShopOwner() + ",");
+						writer.write(voices.get(j).getDate().toString() + "\n");
+						LinkedList<WarehousePart> sales = voices.get(j).getSales();
+						for (int k = 0; k < voices.get(j).getSales().size(); k++)
+						{
+							String onSale = "false";
+							if (sales.get(k).isOnSale())
+							{
+								onSale = "true";
+							}
+							writer.write(String.format("%s,%d,%.2f,%.2f,%s,%d%n", van.get(k).getName(),
+									sales.get(k).getPartNum(), sales.get(k).getPrice(), 
+									sales.get(k).getSalePrice(), onSale, sales.get(k).getQuantity()));
+						}
+						writer.write("new%n");
+					}
+					writer.write("end%n");
+				}
+				catch (Exception e)
+				{
+					System.out.println("Cound not write to file.");
+				}
 			}
 		}
 		
@@ -1083,8 +1169,7 @@ public class LoginSystem
 			writer.close();
 		} catch (IOException e) 
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("File could not be closed.");
 		}
 	}
 }
