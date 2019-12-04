@@ -1099,7 +1099,7 @@ public class LoginSystem
 			try
 			{
 				int typeNum = curPerson.getType().ordinal() + 1;
-				writer.write(String.format("%d%s,%s,%s,%s\n", typeNum, curPerson.getPerson().getFirst(), curPerson.getPerson().getLast(), 
+				writer.write(String.format("%d,%s,%s,%s,%s\n", typeNum, curPerson.getPerson().getFirst(), curPerson.getPerson().getLast(), 
 						curPerson.getPerson().getEmail(), curPerson.getUsername()));
 				
 				writer.write("" + curPerson.getPassword()[0]);
