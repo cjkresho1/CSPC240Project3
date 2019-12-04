@@ -23,5 +23,10 @@ public class SystemAdmin extends LoginAccount
 		super(first, last, email, user, pass);
 		type = LoginType.SYSTEM_ADMIN;
 	}
+	
+	public SystemAdmin(String first, String last, String email, String user, byte[] pass, byte[] salt, int iter)
+	{
+		super (first, last, email, user, pass, salt, iter);
+	}
 
 }
