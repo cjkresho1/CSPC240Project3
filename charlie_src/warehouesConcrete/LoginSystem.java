@@ -969,14 +969,14 @@ public class LoginSystem
 			people.add(new SystemAdmin("John", "Smith", "jsmizzle@bike.org", "admin", "madni"));
 			return;
 		}
-		while(scnr.next() != "people") {
+		while(!scnr.next().equals("people")) {
 			String[] tempPart = scnr.next().split(",");
 			main.add(new WarehousePart(tempPart[1], Integer.parseInt(tempPart[2]),
 					Double.parseDouble(tempPart[3]), Double.parseDouble(tempPart[4]),
 					Boolean.parseBoolean(tempPart[5]), Integer.parseInt(tempPart[6])));
 		}
 		scnr.next();
-		while(scnr.next() != "finish") {
+		while(!scnr.next().equals("finish")) {
 			String[] tempPerson = scnr.next().split(",");
 			
 			String[] hash = scnr.next().split(",");
@@ -1016,14 +1016,14 @@ public class LoginSystem
 			
 			if (Integer.parseInt(tempPerson[0]) == 4) {
 				SalesAssociate tempAssoc = (SalesAssociate)people.get(people.size()-1);
-				while(scnr.next() != "invoices") {
+				while(!scnr.next().equals("invoices")) {
 					String[] newVanPart = scnr.next().split(",");
 					tempAssoc.getVan().add(new WarehousePart(newVanPart[0],Integer.parseInt(newVanPart[1]),
 							Double.parseDouble(newVanPart[2]),Double.parseDouble(newVanPart[3]),
 							Boolean.parseBoolean(newVanPart[4]),Integer.parseInt(newVanPart[5])));
 				}
 				scnr.next();
-				while(scnr.next() != "end") {
+				while(!scnr.next().equals("end")) {
 					
 					String[] invoiceInfo = scnr.next().split(",");
 					Invoice tempInvoice = new Invoice(invoiceInfo[0]);
@@ -1103,16 +1103,16 @@ public class LoginSystem
 						curPerson.getPerson().getEmail(), curPerson.getUsername()));
 				
 				writer.write("" + curPerson.getPassword()[0]);
-				for(int j = 1; j < curPerson.getPassword().length; i++)
+				for(int j = 1; j < curPerson.getPassword().length; j++)
 				{
-					writer.write("," + curPerson.getPassword()[i]);
+					writer.write("," + curPerson.getPassword()[j]);
 				}
 				writer.write("\n");
 				
 				writer.write("" + curPerson.getSalt()[0]);
-				for(int j = 1; j < curPerson.getSalt().length; i++)
+				for(int j = 1; j < curPerson.getSalt().length; j++)
 				{
-					writer.write("," + curPerson.getSalt()[i]);
+					writer.write("," + curPerson.getSalt()[j]);
 				}
 				writer.write("\n");
 				
@@ -1174,6 +1174,7 @@ public class LoginSystem
 		
 		try 
 		{
+			writer.write("finish");
 			writer.close();
 		} catch (IOException e) 
 		{
