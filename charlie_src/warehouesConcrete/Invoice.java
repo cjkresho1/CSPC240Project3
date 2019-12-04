@@ -47,7 +47,7 @@ public class Invoice
 	{
 		DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
 		DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mma");
-		int total = 0;
+		double total = 0;
 		System.out.println("Sales Invoice for " + " Bicycle Shop, " + dtf1.format(date) + " at " + dtf2.format(date));
 		System.out.println("Part Name\t\tPart Number\tPrice\tSales Price\tQnty\tTotal Cost");
 		for (int i = 0; i < sales.size(); i++)
