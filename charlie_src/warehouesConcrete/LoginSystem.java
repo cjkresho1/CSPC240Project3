@@ -1056,6 +1056,7 @@ public class LoginSystem
 		catch (IOException e) 
 		{
 			System.out.println("DB file could not be created.");
+			e.printStackTrace();
 		}
 		
 		for (int i = 0; i < main.getInv().size(); i++)
@@ -1076,6 +1077,7 @@ public class LoginSystem
 				System.out.println("Could not write to file:");
 				System.out.println((String.format("%s,%d,%.2f,%.2f,%s,%d%n", curPart.getName(),
 						curPart.getPartNum(), curPart.getPrice(), curPart.getSalePrice(), onSale, curPart.getQuantity())));
+				e.printStackTrace();
 			}
 		}
 		try 
@@ -1115,6 +1117,7 @@ public class LoginSystem
 			catch(Exception e)
 			{
 				System.out.println("Couldn't write user.");
+				e.printStackTrace();
 			}
 			if(curPerson.getType() == LoginType.SALES_ASSOCIATE)
 			{
@@ -1160,6 +1163,7 @@ public class LoginSystem
 				catch (Exception e)
 				{
 					System.out.println("Cound not write to file.");
+					e.printStackTrace();
 				}
 			}
 		}
@@ -1170,6 +1174,7 @@ public class LoginSystem
 		} catch (IOException e) 
 		{
 			System.out.println("File could not be closed.");
+			e.printStackTrace();
 		}
 	}
 }
