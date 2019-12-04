@@ -960,6 +960,11 @@ public class LoginSystem
 		Scanner scnr;
 		try {
 			scnr = new Scanner(file);
+			if (!scnr.hasNext())
+			{
+				scnr.close();
+				throw new FileNotFoundException();
+			}
 		} catch (FileNotFoundException e) {
 			people.add(new SystemAdmin("John", "Smith", "jsmizzle@bike.org", "admin", "madni"));
 			return;
