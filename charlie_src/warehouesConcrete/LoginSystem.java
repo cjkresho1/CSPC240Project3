@@ -538,7 +538,7 @@ public class LoginSystem
 			}
 		}
 		
-		if (foundPerson.equals(null)) {
+		if (foundPerson == null) {
 			System.out.println("Please enter a valid Sales Associate.");
 			return;
 		}
@@ -566,7 +566,7 @@ public class LoginSystem
 		
 		for (int i = 0; i < tempInvoices.size(); i++) {
 			Invoice tempInvoice = tempInvoices.get(i);
-			if (startDate.compareTo(tempInvoice.getDate()) == -1 && endDate.compareTo(tempInvoice.getDate()) == 1) {
+			if (startDate.compareTo(tempInvoice.getDate()) < 0 && endDate.compareTo(tempInvoice.getDate()) > 0) {
 				commissionList.add(tempInvoice);
 			}
 		}
@@ -581,9 +581,11 @@ public class LoginSystem
 				} else {
 					salaryToAdd = invoiceParts.get(j).getPrice();
 				}
+				salaryToAdd = salaryToAdd*invoiceParts.get(j).getQuantity();
 				salary = salary + salaryToAdd;
 			}
 		}
+		salary = salary*.15;
 		
 		System.out.println(username + " commission is $" + salary);
 				
