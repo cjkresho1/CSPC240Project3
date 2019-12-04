@@ -1073,20 +1073,20 @@ public class LoginSystem
 			}
 			try 
 			{
-				writer.write(String.format("%s,%d,%.2f,%.2f,%s,%d%n", curPart.getName(),
+				writer.write(String.format("%s,%d,%.2f,%.2f,%s,%d\n", curPart.getName(),
 						curPart.getPartNum(), curPart.getPrice(), curPart.getSalePrice(), onSale, curPart.getQuantity()));
 			} 
 			catch (IOException e) 
 			{
 				System.out.println("Could not write to file:");
-				System.out.println((String.format("%s,%d,%.2f,%.2f,%s,%d%n", curPart.getName(),
+				System.out.println((String.format("%s,%d,%.2f,%.2f,%s,%d\n", curPart.getName(),
 						curPart.getPartNum(), curPart.getPrice(), curPart.getSalePrice(), onSale, curPart.getQuantity())));
 				e.printStackTrace();
 			}
 		}
 		try 
 		{
-			writer.write("people%n");
+			writer.write("people\n");
 		} 
 		catch (IOException e1) 
 		{
@@ -1099,7 +1099,7 @@ public class LoginSystem
 			try
 			{
 				int typeNum = curPerson.getType().ordinal() + 1;
-				writer.write(String.format("%d%s,%s,%s,%s%n", typeNum, curPerson.getPerson().getFirst(), curPerson.getPerson().getLast(), 
+				writer.write(String.format("%d%s,%s,%s,%s\n", typeNum, curPerson.getPerson().getFirst(), curPerson.getPerson().getLast(), 
 						curPerson.getPerson().getEmail(), curPerson.getUsername()));
 				
 				writer.write("" + curPerson.getPassword()[0]);
@@ -1136,7 +1136,7 @@ public class LoginSystem
 						{
 							onSale = "true";
 						}
-						writer.write(String.format("%s,%d,%.2f,%.2f,%s,%d%n", van.get(j).getName(),
+						writer.write(String.format("%s,%d,%.2f,%.2f,%s,%d\n", van.get(j).getName(),
 								van.get(j).getPartNum(), van.get(j).getPrice(), 
 								van.get(j).getSalePrice(), onSale, van.get(j).getQuantity()));
 					}
@@ -1156,13 +1156,13 @@ public class LoginSystem
 							{
 								onSale = "true";
 							}
-							writer.write(String.format("%s,%d,%.2f,%.2f,%s,%d%n", van.get(k).getName(),
+							writer.write(String.format("%s,%d,%.2f,%.2f,%s,%d\n", van.get(k).getName(),
 									sales.get(k).getPartNum(), sales.get(k).getPrice(), 
 									sales.get(k).getSalePrice(), onSale, sales.get(k).getQuantity()));
 						}
-						writer.write("new%n");
+						writer.write("new\n");
 					}
-					writer.write("end%n");
+					writer.write("end\n");
 				}
 				catch (Exception e)
 				{
