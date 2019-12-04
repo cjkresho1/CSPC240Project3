@@ -27,5 +27,6 @@ public class OfficeManager extends LoginAccount
 	public OfficeManager(String first, String last, String email, String user, byte[] pass, byte[] salt, int iter)
 	{
 		super (first, last, email, user, pass, salt, iter);
+		type = LoginType.OFFICE_MANAGER;
 	}
 }

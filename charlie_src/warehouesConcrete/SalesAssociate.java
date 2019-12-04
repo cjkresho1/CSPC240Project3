@@ -42,6 +42,10 @@ public class SalesAssociate extends LoginAccount
 	public SalesAssociate(String first, String last, String email, String user, byte[] pass, byte[] salt, int iter)
 	{
 		super (first, last, email, user, pass, salt, iter);
+		type = LoginType.SALES_ASSOCIATE;
+		
+		van = new VanWarehouse();
+		invoices = new LinkedList<Invoice>();
 	}
 
 	/**

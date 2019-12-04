@@ -969,15 +969,17 @@ public class LoginSystem
 			people.add(new SystemAdmin("John", "Smith", "jsmizzle@bike.org", "admin", "madni"));
 			return;
 		}
-		while(!scnr.next().equals("people")) {
-			String[] tempPart = scnr.next().split(",");
-			main.add(new WarehousePart(tempPart[1], Integer.parseInt(tempPart[2]),
-					Double.parseDouble(tempPart[3]), Double.parseDouble(tempPart[4]),
-					Boolean.parseBoolean(tempPart[5]), Integer.parseInt(tempPart[6])));
+		String test = scnr.next();
+		while(!test.equals("people")) {
+			String[] tempPart = test.split(",");
+			main.add(new WarehousePart(tempPart[0], Integer.parseInt(tempPart[1]),
+					Double.parseDouble(tempPart[2]), Double.parseDouble(tempPart[3]),
+					Boolean.parseBoolean(tempPart[4]), Integer.parseInt(tempPart[5])));
+			test = scnr.next();
 		}
-		scnr.next();
-		while(!scnr.next().equals("finish")) {
-			String[] tempPerson = scnr.next().split(",");
+		test = scnr.next();
+		while(!test.equals("finish")) {
+			String[] tempPerson = test.split(",");
 			
 			String[] hash = scnr.next().split(",");
 			String[] saltString = scnr.next().split(",");
@@ -1016,22 +1018,24 @@ public class LoginSystem
 			
 			if (Integer.parseInt(tempPerson[0]) == 4) {
 				SalesAssociate tempAssoc = (SalesAssociate)people.get(people.size()-1);
-				while(!scnr.next().equals("invoices")) {
-					String[] newVanPart = scnr.next().split(",");
+				test = scnr.next();
+				while(!test.equals("invoices")) {
+					String[] newVanPart = test.split(",");
 					tempAssoc.getVan().add(new WarehousePart(newVanPart[0],Integer.parseInt(newVanPart[1]),
 							Double.parseDouble(newVanPart[2]),Double.parseDouble(newVanPart[3]),
 							Boolean.parseBoolean(newVanPart[4]),Integer.parseInt(newVanPart[5])));
 				}
-				scnr.next();
-				while(!scnr.next().equals("end")) {
+				test = scnr.next();
+				while(!test.equals("end")) {
 					
-					String[] invoiceInfo = scnr.next().split(",");
+					String[] invoiceInfo = test.split(",");
 					Invoice tempInvoice = new Invoice(invoiceInfo[0]);
 					LocalDateTime newTime = LocalDateTime.parse(invoiceInfo[1]);
 					tempInvoice.setDate(newTime);
 					
-					while(scnr.next() != "new") {
-						String[] invoicePartInfo = scnr.next().split(",");
+					test = scnr.next();
+					while(!test.equals("new")) {
+						String[] invoicePartInfo = test.split(",");
 						tempInvoice.add(new WarehousePart(invoicePartInfo[0],Integer.parseInt(invoicePartInfo[1]),
 								Double.parseDouble(invoicePartInfo[2]),Double.parseDouble(invoicePartInfo[3]),
 								Boolean.parseBoolean(invoicePartInfo[4]),Integer.parseInt(invoicePartInfo[5])));
@@ -1040,6 +1044,7 @@ public class LoginSystem
 					scnr.next();
 				}
 			}
+			test = scnr.next();
 		}
 		scnr.close();
 	}
