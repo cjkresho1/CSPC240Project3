@@ -231,19 +231,19 @@ public class Warehouse
 	 * @param parts List of parts to be removed
 	 * @return List of parts that were removed, where quantity is the number of parts successfully removed.
 	 */
-	public WarehousePart[] remove(WarehousePart[] parts)
+	public WarehousePart[] remove(LinkedList<WarehousePart> parts)
 	{
-		WarehousePart[] returnInv = new WarehousePart[parts.length];
+		WarehousePart[] returnInv = new WarehousePart[parts.size()];
 		for (int i = 0; i < returnInv.length; i++)
 		{
-			WarehousePart foundPart = new WarehousePart(parts[i]);
+			WarehousePart foundPart = new WarehousePart(parts.get(i));
 			foundPart.setQuantity(0);
 			for (int j = 0; j < inv.size(); j++)
 			{
-				if (parts[i].getPartNum() == inv.get(j).getPartNum())
+				if (parts.get(i).getPartNum() == inv.get(j).getPartNum())
 				{
 					foundPart = new WarehousePart(inv.get(j));
-					foundPart.setQuantity(Math.min(parts[i].getQuantity(), inv.get(j).getQuantity()));
+					foundPart.setQuantity(Math.min(parts.get(i).getQuantity(), inv.get(j).getQuantity()));
 					inv.get(j).setQuantity(inv.get(j).getQuantity() - foundPart.getQuantity());
 					break;
 				}
