@@ -74,6 +74,16 @@ public abstract class LoginAccount
 		password = hashPassword(pass.toCharArray(), salt, iterations, KEY_LENGTH);
 	}
 	
+	public LoginAccount(String first, String last, String email, String user, byte[] pass, byte[] salt, int iter)
+	{
+		person = new Person(first, last, email);
+		username = user;
+		
+		this.salt = salt;
+		iterations = iter;
+		this.password = pass;
+	}
+	
 	/**
 	 * Process login information on the user.
 	 * @param pass Provided password
