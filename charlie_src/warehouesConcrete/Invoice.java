@@ -49,11 +49,11 @@ public class Invoice
 		DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mma");
 		double total = 0;
 		System.out.println("Sales Invoice for " + " Bicycle Shop, " + dtf1.format(date) + " at " + dtf2.format(date));
-		System.out.println("Part Name\t\tPart Number\tPrice\tSales Price\tQnty\tTotal Cost");
+		System.out.println("Part Name\t\tPart Number\t\tPrice\tSales Price\tQnty\tTotal Cost");
 		for (int i = 0; i < sales.size(); i++)
 		{
 			WarehousePart cur = sales.get(i);
-			int curTotal = cur.getQuantity();
+			double curTotal = cur.getQuantity();
 			if (cur.isOnSale())
 			{
 				curTotal *= cur.getSalePrice();
@@ -63,9 +63,9 @@ public class Invoice
 				curTotal *= cur.getPrice();
 			}
 			total += curTotal;
-			System.out.printf("%-20s%-010i%.2f%.2f%-3i%.2f%n", cur.getName(), 
+			System.out.printf("%-24s%-16d%-16.2f%-16.2f%-8d%.2f%n", cur.getName(), 
 					cur.getPartNum(), cur.getPrice(), cur.getSalePrice(), cur.getQuantity(), curTotal);
 		}
-		System.out.printf("Total\t\t\t\t\t\t\t\t\t%.2f%n", total);
+		System.out.printf("Total\t\t\t\t\t\t\t\t\\tt%.2f%n", total);
 	}
 }
