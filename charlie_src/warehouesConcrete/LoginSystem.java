@@ -264,6 +264,12 @@ public class LoginSystem
 				user = null;
 			}
 		}
+		for (int i = 0; i < people.size(); i++) {
+			if (user.equals(people.get(i).getUsername())) {
+				System.out.println("That username is already taken, please enter a unique username.");
+				return;
+			}
+		}
 		
 		while (password == null)
 		{
@@ -353,7 +359,7 @@ public class LoginSystem
 		}
 		for (int i = 0; i < people.size(); i++)
 		{
-			if(people.get(i).getUsername().equals(username)) 
+			if(people.get(i).getUsername().equals(username) && !people.get(i).getUsername().equals("admin")) 
 			{
 				people.remove(i);
 				return true;
@@ -508,7 +514,7 @@ public class LoginSystem
 		String username = null;
 		while (username == null)
 		{
-			System.out.print("Sales Associate Name: ");
+			System.out.print("Sales Associate Username: ");
 			try
 			{
 				username = scan.next();
@@ -585,7 +591,9 @@ public class LoginSystem
 		}
 		salary = salary*.15;
 		
-		System.out.println(username + " commission is $" + salary);
+		String commissionString = String.format("%.2f", salary);
+		
+		System.out.println(username + " commission is $" + commissionString);
 				
 	}
 
@@ -635,7 +643,7 @@ public class LoginSystem
 	
 	private void updateInventory() 
 	{
-		System.out.print("Please enter the file name: ");
+		System.out.println("Please enter the file name");
 		
 		String fileName = null;
 		while (fileName == null)
@@ -727,7 +735,7 @@ public class LoginSystem
 	
 	private void loadVan() 
 	{
-		System.out.print("Please enter the file name: ");
+		System.out.println("Please enter the file name");
 		
 		String fileName = null;
 		while (fileName == null)
@@ -938,6 +946,7 @@ public class LoginSystem
 				System.out.println("Invalid input, please try again.\n");
 			}
 			
+			
 			System.out.print("Do you have another part to sell? 1 for yes, 2 for no: ");
 			try
 			{
@@ -947,6 +956,9 @@ public class LoginSystem
 			catch(Exception e)
 			{
 				choice = 0;
+			}
+			if (selling != false) {
+				break;
 			}
 		}
 		
