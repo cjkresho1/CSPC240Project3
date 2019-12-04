@@ -15,7 +15,6 @@ public class Invoice
 		sales = new LinkedList<WarehousePart>();
 		date =  LocalDateTime.now();
 		this.shopOwner = _shopOwner;
-		
 	}
 	
 	/**
@@ -42,6 +41,11 @@ public class Invoice
 	{
 		return date;
 	}
+	
+	public void setDate(LocalDateTime date)
+	{
+		this.date = date;
+	}
 
 	public void print() 
 	{
@@ -67,5 +71,12 @@ public class Invoice
 					cur.getPartNum(), cur.getPrice(), cur.getSalePrice(), cur.getQuantity(), curTotal);
 		}
 		System.out.printf("Total\t\t\t\t\t\t\t\t\\tt%.2f%n", total);
+	}
+
+	/**
+	 * @return the shopOwner
+	 */
+	public String getShopOwner() {
+		return shopOwner;
 	}
 }
