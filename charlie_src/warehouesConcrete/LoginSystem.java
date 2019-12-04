@@ -1102,16 +1102,16 @@ public class LoginSystem
 						curPerson.getPerson().getEmail(), curPerson.getUsername()));
 				
 				writer.write("" + curPerson.getPassword()[0]);
-				for(int j = 1; j < curPerson.getPassword().length; i++)
+				for(int j = 1; j < curPerson.getPassword().length; j++)
 				{
-					writer.write("," + curPerson.getPassword()[i]);
+					writer.write("," + curPerson.getPassword()[j]);
 				}
 				writer.write("\n");
 				
 				writer.write("" + curPerson.getSalt()[0]);
-				for(int j = 1; j < curPerson.getSalt().length; i++)
+				for(int j = 1; j < curPerson.getSalt().length; j++)
 				{
-					writer.write("," + curPerson.getSalt()[i]);
+					writer.write("," + curPerson.getSalt()[j]);
 				}
 				writer.write("\n");
 				
