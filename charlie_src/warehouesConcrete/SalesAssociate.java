@@ -38,6 +38,11 @@ public class SalesAssociate extends LoginAccount
 		van = new VanWarehouse();
 		invoices = new LinkedList<Invoice>();
 	}
+	
+	public SalesAssociate(String first, String last, String email, String user, byte[] pass, byte[] salt, int iter)
+	{
+		super (first, last, email, user, pass, salt, iter);
+	}
 
 	/**
 	 * @return the van
