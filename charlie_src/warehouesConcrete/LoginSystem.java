@@ -35,8 +35,6 @@ public class LoginSystem
 		people = new LinkedList<LoginAccount>();
 		curUser = null;
 		
-		people.add(new SystemAdmin("Charlie", "Kresho", "ckemail@email.com", "admin", "madni"));
-		
 		run(DEFAULT_FILE);
 	}
 	
