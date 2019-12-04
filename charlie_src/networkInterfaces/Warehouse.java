@@ -268,4 +268,9 @@ public abstract class Warehouse
 		
 		return returnPart;
 	}
+	
+	public LinkedList<WarehousePart> getInv()
+	{
+		return inv;
+	}
 }
